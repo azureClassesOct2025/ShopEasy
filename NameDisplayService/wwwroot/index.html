@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Name Display Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        
+        .display-area {
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .name-display {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #f5576c;
+            transition: all 0.3s;
+        }
+        
+        .name-display.empty {
+            color: #999;
+            font-size: 1.2em;
+            font-weight: normal;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: bold;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(245, 87, 108, 0.4);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .status {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .name-display:not(.empty) {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Displayed Name</h1>
+        <div class="display-area">
+            <div id="nameDisplay" class="name-display empty">Waiting for name...</div>
+        </div>
+        <button onclick="refreshName()">Refresh</button>
+        <div class="status" id="status">Click refresh to check for new names</div>
+    </div>
+
+    <script>
+        let checkInterval;
+        
+        async function refreshName() {
+            try {
+                const response = await fetch('/api/getname');
+                const data = await response.json();
+                
+                const nameDisplay = document.getElementById('nameDisplay');
+                const status = document.getElementById('status');
+                
+                if (data.name && data.name.trim() !== '') {
+                    nameDisplay.textContent = data.name;
+                    nameDisplay.classList.remove('empty');
+                    status.textContent = `Last updated: ${new Date().toLocaleTimeString()}`;
+                } else {
+                    nameDisplay.textContent = 'Waiting for name...';
+                    nameDisplay.classList.add('empty');
+                    status.textContent = 'No name received yet';
+                }
+            } catch (error) {
+                const status = document.getElementById('status');
+                status.textContent = 'Error: ' + error.message;
+                status.style.color = '#d32f2f';
+            }
+        }
+        
+        // Auto-refresh every 2 seconds
+        function startAutoRefresh() {
+            refreshName(); // Initial call
+            checkInterval = setInterval(refreshName, 2000);
+        }
+        
+        // Start auto-refresh when page loads
+        window.addEventListener('load', startAutoRefresh);
+        
+        // Clean up interval when page unloads
+        window.addEventListener('beforeunload', () => {
+            if (checkInterval) {
+                clearInterval(checkInterval);
+            }
+        });
+    </script>
+</body>
+</html>

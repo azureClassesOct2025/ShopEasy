@@ -1,0 +1,22 @@
+## Build stage
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /src
+
+# Copy csproj and restore as distinct layers
+COPY NameDisplayService/NameDisplayService.csproj NameDisplayService/
+RUN dotnet restore NameDisplayService/NameDisplayService.csproj
+
+# Copy everything and build
+COPY NameDisplayService/ NameDisplayService/
+WORKDIR /src/NameDisplayService
+RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
+
+## Runtime stage
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
+WORKDIR /app
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "NameDisplayService.dll"]
+
+

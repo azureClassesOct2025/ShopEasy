@@ -1,0 +1,16 @@
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/*.user
+**/*.suo
+**/*.swp
+**/*.DS_Store
+**/node_modules
+**/coverage
+**/TestResults
+**/.idea
+**/*.log
+**/packages
+
+

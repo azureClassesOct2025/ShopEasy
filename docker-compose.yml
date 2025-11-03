@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  namedisplayservice:
+    build:
+      context: .
+      dockerfile: NameDisplayService/Dockerfile
+    container_name: namedisplayservice
+    ports:
+      - "5010:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  nameinputservice:
+    build:
+      context: .
+      dockerfile: NameInputService/Dockerfile
+    container_name: nameinputservice
+    ports:
+      - "5255:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - DisplayServiceUrl=http://namedisplayservice:8080
+    depends_on:
+      - namedisplayservice
+
+

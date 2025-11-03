@@ -1,0 +1,25 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\Shashi\\OneDrive\\Desktop\\Pawan Class\\ShopEasy\\NameInputService\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.NameInputService.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.NameInputService.props",
+      "PackagePath": "build\\NameInputService.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.NameInputService.props",
+      "PackagePath": "buildMultiTargeting\\NameInputService.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.NameInputService.props",
+      "PackagePath": "buildTransitive\\NameInputService.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

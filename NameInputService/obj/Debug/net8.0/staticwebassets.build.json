@@ -1,0 +1,39 @@
+{
+  "Version": 1,
+  "Hash": "cJL76AC8RIESMr6ho39udTalrXW/IIOdqkZSJ+R/ERo=",
+  "Source": "NameInputService",
+  "BasePath": "_content/NameInputService",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "NameInputService\\wwwroot",
+      "Source": "NameInputService",
+      "ContentRoot": "C:\\Users\\Shashi\\OneDrive\\Desktop\\Pawan Class\\ShopEasy\\NameInputService\\wwwroot\\",
+      "BasePath": "_content/NameInputService",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\Shashi\\OneDrive\\Desktop\\Pawan Class\\ShopEasy\\NameInputService\\wwwroot\\index.html",
+      "SourceId": "NameInputService",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Shashi\\OneDrive\\Desktop\\Pawan Class\\ShopEasy\\NameInputService\\wwwroot\\",
+      "BasePath": "_content/NameInputService",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    }
+  ]
+}
