@@ -7,7 +7,7 @@ COPY NameDisplayService/NameDisplayService.csproj NameDisplayService/
 RUN dotnet restore NameDisplayService/NameDisplayService.csproj
 
 # Copy everything and build
-COPY NameDisplayService/ NameDisplayService/
+COPY . .
 WORKDIR /src/NameDisplayService
 RUN dotnet publish -c Release -o /app/publish /p:UseAppHost=false
 
