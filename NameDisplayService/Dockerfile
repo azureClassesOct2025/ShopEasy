@@ -3,8 +3,8 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # Copy csproj and restore as distinct layers
-COPY *.csproj .
-RUN dotnet restore
+COPY NameDisplayService/*.csproj NameDisplayService/
+RUN dotnet restore NameDisplayService/NameDisplayService.csproj
 
 # Copy everything and build
 COPY . .
