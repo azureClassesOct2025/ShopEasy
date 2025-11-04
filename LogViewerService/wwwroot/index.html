@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Viewer Service</title>
+    <style>
+        body { font-family: Segoe UI, Arial, sans-serif; margin: 0; padding: 20px; background: #f5f7fb; }
+        h1 { margin: 0 0 16px; }
+        .wrap { display: grid; grid-template-columns: 280px 1fr; gap: 16px; }
+        .panel { background: #fff; border-radius: 10px; box-shadow: 0 6px 18px rgba(0,0,0,.06); }
+        .panel h2 { margin: 0; padding: 12px 14px; border-bottom: 1px solid #eee; font-size: 16px; color: #333; }
+        .list { max-height: 70vh; overflow: auto; }
+        .list button { width: 100%; text-align: left; padding: 10px 14px; border: 0; border-bottom: 1px solid #f0f0f0; background: #fff; cursor: pointer; }
+        .list button:hover { background: #f8f9ff; }
+        .content { padding: 12px; }
+        pre { white-space: pre-wrap; word-break: break-word; font-family: Consolas, monospace; font-size: 13px; background: #0d1117; color: #c9d1d9; padding: 12px; border-radius: 8px; min-height: 65vh; }
+        .muted { color: #888; font-size: 13px; padding: 12px; }
+        .toolbar { display: flex; gap: 8px; padding: 10px 12px; border-bottom: 1px solid #eee; align-items: center; }
+        .toolbar input { padding: 8px 10px; border: 1px solid #ddd; border-radius: 6px; width: 220px; }
+        .toolbar button { padding: 8px 12px; border: 0; background: #4f46e5; color: #fff; border-radius: 6px; cursor: pointer; }
+        .toolbar button.secondary { background: #64748b; }
+    </style>
+    <script>
+        async function loadList() {
+            const res = await fetch('/api/logs');
+            const files = await res.json();
+            const list = document.getElementById('list');
+            list.innerHTML = '';
+            if (!files.length) {
+                document.getElementById('viewer').innerHTML = '<div class="muted">No log files found.</div>';
+                return;
+            }
+            files.forEach(name => {
+                const btn = document.createElement('button');
+                btn.textContent = name;
+                btn.onclick = () => loadFile(name);
+                list.appendChild(btn);
+            });
+        }
+        async function loadFile(name) {
+            const res = await fetch('/api/logs/' + encodeURIComponent(name));
+            if (!res.ok) {
+                document.getElementById('viewer').innerHTML = '<div class="muted">Failed to load ' + name + '</div>';
+                return;
+            }
+            const text = await res.text();
+            document.getElementById('viewer').textContent = text || '(empty)';
+        }
+        function filterList() {
+            const q = document.getElementById('filter').value.toLowerCase();
+            const buttons = document.querySelectorAll('.list button');
+            buttons.forEach(b => {
+                b.style.display = b.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        }
+        function refreshAll() { loadList(); document.getElementById('viewer').textContent=''; }
+        window.addEventListener('load', loadList);
+    </script>
+    </head>
+<body>
+    <h1>Log Viewer</h1>
+    <div class="wrap">
+        <div class="panel">
+            <div class="toolbar">
+                <input id="filter" placeholder="Filter by filename..." oninput="filterList()" />
+                <button class="secondary" onclick="refreshAll()">Refresh</button>
+            </div>
+            <h2>Files</h2>
+            <div id="list" class="list"></div>
+        </div>
+        <div class="panel">
+            <h2>Contents</h2>
+            <div class="content">
+                <pre id="viewer">Select a file to view...</pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+

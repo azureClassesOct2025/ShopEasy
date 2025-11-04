@@ -30,6 +30,10 @@ app.UseStaticFiles();
 // Configuration
 var displayServiceUrl = builder.Configuration["DisplayServiceUrl"] ?? "http://localhost:5010";
 
+// Ensure backupLog directory exists for request logging
+var backupLogDirectory = Path.Combine(AppContext.BaseDirectory, "backupLog");
+Directory.CreateDirectory(backupLogDirectory);
+
 // API endpoint to receive name and forward it to DisplayService
 app.MapPost("/api/submitname", async (NameRequest request, IHttpClientFactory httpClientFactory) =>
 {
@@ -40,6 +44,11 @@ app.MapPost("/api/submitname", async (NameRequest request, IHttpClientFactory ht
 
     try
     {
+        // Write a log entry per submission
+        var logFilePath = Path.Combine(backupLogDirectory, $"{DateTime.UtcNow:yyyyMMdd}.log");
+        var logLine = $"{DateTime.UtcNow:o} | name=\"{request.Name}\"";
+        await File.AppendAllTextAsync(logFilePath, logLine + Environment.NewLine);
+
         var httpClient = httpClientFactory.CreateClient();
         var response = await httpClient.PostAsJsonAsync($"{displayServiceUrl}/api/displayname", new { Name = request.Name });
         

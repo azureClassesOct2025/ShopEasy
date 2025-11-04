@@ -32,3 +32,4 @@ C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameDisplayService\obj\Deb
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameDisplayService\obj\Debug\net8.0\NameDisplayService.pdb
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameDisplayService\obj\Debug\net8.0\NameDisplayService.genruntimeconfig.cache
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameDisplayService\obj\Debug\net8.0\ref\NameDisplayService.dll
+C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameDisplayService\obj\Debug\net8.0\NameDisplayService.sourcelink.json

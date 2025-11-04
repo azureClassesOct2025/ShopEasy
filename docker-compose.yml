@@ -24,4 +24,20 @@ services:
     depends_on:
       - namedisplayservice
 
+  logviewerservice:
+    build:
+      context: .
+      dockerfile: LogViewerService/Dockerfile
+    container_name: logviewerservice
+    ports:
+      - "5090:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      # Map to NameInputService logs inside its container if using a shared volume
+      # Set to a host-mounted volume below for cross-container visibility
+      - LogDirectory=/logs
+    volumes:
+      # Mount the NameInputService logs from the host into this container at /logs
+      - ./NameInputService/bin/Debug/net8.0/backupLog:/logs
+
 
