@@ -32,4 +32,3 @@ C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameInputService\obj\Debug
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameInputService\obj\Debug\net8.0\NameInputService.pdb
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameInputService\obj\Debug\net8.0\NameInputService.genruntimeconfig.cache
 C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameInputService\obj\Debug\net8.0\ref\NameInputService.dll
-C:\Users\Shashi\OneDrive\Desktop\Pawan Class\ShopEasy\NameInputService\obj\Debug\net8.0\NameInputService.sourcelink.json

@@ -1,0 +1,76 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  tag: '$(Build.BuildId)'
+
+stages:
+- stage: BuildDispalyServive
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/NameDisplayService/Dockerfile'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/NameDisplayService/Dockerfile'
+        repository: namedisplayservice
+        tags: |
+          $(tag)
+
+    - script: |
+        docker save namedisplayservice:$(tag) -o $(Build.ArtifactStagingDirectory)/namedisplayservice.tar
+      displayName: Save Docker image as tar
+
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: docker-image-display
+
+- stage: BuildInputService
+  displayName: Build Input Service
+  jobs:
+  - job: BuildInputService
+    displayName: Build Input Service
+    pool:
+      vmImage: ubuntu-latest
+    steps:
+    - task: Docker@2
+      displayName: Build an image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/NameInputService/Dockerfile'
+        tags: |
+          $(tag)
+    - task: Docker@2
+      displayName: Build image
+      inputs:
+        command: build
+        dockerfile: '$(Build.SourcesDirectory)/NameInputService/Dockerfile'
+        repository: nameinputservice
+        tags: |
+          $(tag)
+
+    - script: |
+        docker save nameinputservice:$(tag) -o $(Build.ArtifactStagingDirectory)/nameinputservice.tar
+      displayName: Save Docker image as tar
+
+    - publish: $(Build.ArtifactStagingDirectory)
+      artifact: docker-image-input
+

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameInputService", "NameInp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NameDisplayService", "NameDisplayService\NameDisplayService.csproj", "{75327129-D362-4FCD-B64B-004B0D24AA4E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogViewerService", "LogViewerService\LogViewerService.csproj", "{A24CEE47-661F-4A8C-9158-421F388F30D1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +24,5 @@ Global
 		{75327129-D362-4FCD-B64B-004B0D24AA4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75327129-D362-4FCD-B64B-004B0D24AA4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75327129-D362-4FCD-B64B-004B0D24AA4E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A24CEE47-661F-4A8C-9158-421F388F30D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A24CEE47-661F-4A8C-9158-421F388F30D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A24CEE47-661F-4A8C-9158-421F388F30D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A24CEE47-661F-4A8C-9158-421F388F30D1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
